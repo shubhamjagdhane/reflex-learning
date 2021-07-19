@@ -8,13 +8,20 @@ main = mainWidgetWithHead headElement bodyElement
 headElement :: MonadWidget t m => m ()
 headElement = do
   el "title" $ text "Main Title"
-  styleSheet "css/simple.css"
+  styleSheet "css/simple.css"  
+  metadata
   where
     styleSheet link = elAttr "link" (Map.fromList [
           ("rel", "stylesheet")
         , ("type", "text/css")
         , ("href", link)
       ]) $ return ()
+    
+    metadata = elAttr "meta" (Map.fromList [
+          ("name", "description")
+        , ("content", "This is my metadata")
+      ]) $ return ()
+
 
 bodyElement :: MonadWidget t m => m ()
 bodyElement =  el "header" $ do
